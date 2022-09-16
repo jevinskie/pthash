@@ -1,5 +1,7 @@
 #pragma once
 
+#include <bit>
+
 #if defined(__x86_64__)
 #include <immintrin.h>
 #endif
@@ -10,6 +12,8 @@ template <typename T>
 inline void prefetch(T const* ptr) {
 #if defined(__x86_64__)
     _mm_prefetch(reinterpret_cast<const char*>(ptr), _MM_HINT_T0);
+#else
+    (void)ptr;
 #endif
 }
 

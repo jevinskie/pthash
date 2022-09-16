@@ -259,7 +259,7 @@ void search_parallel(uint64_t num_keys, uint64_t num_buckets, uint64_t num_non_e
 
             if (local_bucket_idx >= num_non_empty_buckets) {  // stop the thread
                 // update (global) next_bucket_idx, which may unlock other threads
-                ++next_bucket_idx;
+                next_bucket_idx = next_bucket_idx + 1;
                 break;
             }
 
@@ -268,7 +268,7 @@ void search_parallel(uint64_t num_keys, uint64_t num_buckets, uint64_t num_non_e
             ++buckets;
 
             // update (global) next_bucket_idx, which may unlock other threads
-            ++next_bucket_idx;
+            next_bucket_idx = next_bucket_idx + 1;
         }
     };
 
