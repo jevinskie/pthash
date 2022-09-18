@@ -1,5 +1,7 @@
 #pragma once
 
+#define XXH_INLINE_ALL
+#define XXH_NAMESPACE pthash_
 #include <xxhash.h>
 
 // See also https://github.com/jermp/bench_hash_functions
