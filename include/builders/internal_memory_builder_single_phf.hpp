@@ -22,7 +22,7 @@ struct internal_memory_builder_single_phf {
                     return build_from_hashes(hash_generator<RandomAccessIterator>(keys, m_seed),
                                              num_keys, config);
                 } catch (seed_runtime_error const& error) {
-                    std::cout << "attempt " << attempt + 1 << " failed" << std::endl;
+                    std::cout << " attempt " << attempt + 1 << " failed" << std::endl;
                 }
             }
             throw seed_runtime_error();

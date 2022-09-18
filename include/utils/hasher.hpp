@@ -1,5 +1,7 @@
 #pragma once
 
+#include <xxhash.h>
+
 // See also https://github.com/jermp/bench_hash_functions
 
 namespace pthash {
@@ -167,6 +169,25 @@ struct murmurhash2_128 {
     static inline hash128 hash(uint64_t val, uint64_t seed) {
         return {MurmurHash2_64(reinterpret_cast<char const*>(&val), sizeof(val), seed),
                 MurmurHash2_64(reinterpret_cast<char const*>(&val), sizeof(val), ~seed)};
+    }
+};
+
+struct xxhash_64 {
+    typedef hash64 hash_type;
+
+    // generic range of bytes
+    static inline hash64 hash(byte_range range, uint64_t seed) {
+        return XXH64(range.begin, range.end - range.begin, seed);
+    }
+
+    // specialization for std::string
+    static inline hash64 hash(std::string const& val, uint64_t seed) {
+        return XXH64(val.data(), val.size(), seed);
+    }
+
+    // specialization for uint64_t
+    static inline hash64 hash(uint64_t val, uint64_t seed) {
+        return XXH64(reinterpret_cast<char const*>(&val), sizeof(val), seed);
     }
 };
 

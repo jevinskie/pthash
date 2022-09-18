@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 project(pthash)
 
+add_subdirectory(external/xxHash/cmake_unofficial)
+
 add_library(pthash INTERFACE)
+target_link_libraries(pthash INTERFACE xxhash)
 target_include_directories(pthash INTERFACE scoped-include)
 set_target_properties(pthash PROPERTIES CXX_STANDARD 17)
 
